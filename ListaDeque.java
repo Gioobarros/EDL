@@ -1,3 +1,130 @@
+// Deque com lista simplemente encadeada
+//Nó que aponta só para o próximo
+
+class NoSimples {
+    int valor;
+    NoSimples prox; // próx nó 
+
+    public NoSimples (int valor) {
+        this.valor = valor;
+        this.prox = null; //inicia vazio
+    }
+}
+
+class DequeSimplesmenteEncadeado {
+    private NoSimples inicio; //primeiro nó
+    private NoSimples fim; //último nó 
+    private int tamanho; // elementos 
+
+    public DequeSimplesmenteEncadeado () {
+        inicio = null;
+        fim = null;
+        tamanho = 0; //inicia tudo vazio
+    }
+
+    public boolean isEmpty (){
+        return tamanho == 0;
+    }
+
+    public int tamanho (){
+        return tamanho;
+    }
+
+    public void inserirInicio (int valor) {
+        NoSimples novoNo = new NoSimples (valor); // novo
+
+        if (isEmpty()) {
+            inicio = novoNo; 
+            fim = novoNo;
+        }
+        else {
+            novoNo.prox = inicio; // novo nó aponta para a atual inicio 
+            inicio = novoNo; // novo nó vira a nova inicio 
+        }
+        tamanho++;
+        System.out.println (valor + " foi inserido no início do deque.");
+    }
+
+    public void inserirFim (int valor) {
+        NoSimples novoNo = new NoSimples (valor); //novo
+
+        if (isEmpty()) {
+            inicio = novoNo;
+            fim = novoNo;
+        }
+        else {
+            fim.prox = novoNo; //atual fim aponta para novo nó
+            fim = novoNo; // novo nó vira o novo fim
+        }
+        tamanho++;
+        System.out.println (valor + " foi inserido no final do deque.");
+    }
+
+    public int removerInicio () {
+        if (isEmpty()) {
+            System.out.println ("O deque está vazio, não há o que remover.");
+            return -1;
+        }
+
+        int valor = inicio.valor; // tira o valor do inicio e armazena após remover
+
+        if (tamanho == 1) { // se só tem 1, fica vazio
+            inicio = null;
+            fim = null;
+        }
+        else {
+            inicio = inicio.prox; // o inicio vira o atual 2º nó
+        }
+
+        tamanho--;
+        System.out.println (valor + " foi removido do início do deque.");
+        return valor; // informa removido
+    }
+
+    public int removerFim () { // Big-o: O(n)
+        if (isEmpty()) {
+            System.out.println ("O deque está vazio, não há o que remover.");
+            return -1;
+        }
+
+        int valor = fim.valor; // tira o valor do fim e armazena 
+
+        if (tamanho == 1) { // se só tem 1, tudo fica vazio
+            inicio = null;
+            fim = null; 
+        }
+        else {
+            NoSimples atual = inicio;
+            while (atual.prox != fim) { //enqt o próx do atual não for fim
+                atual = atual.prox; // percorre a lista
+            }
+            // agora o atual é o penúltimo
+            atual.prox = null; // tira a ligação com o antigo fim
+            fim = atual; // atual vira o novo fim
+        }
+        tamanho--;
+        System.out.println (valor + " foi removido do final do deque.");
+        return valor; // informa o removido
+    }
+
+    //mostrar o deque
+    public void mostrarDeque () {
+        if (isEmpty()) {
+            System.out.println ("O deque está vazio.");
+            return;
+        }
+        System.out.print("Deque atual:" );
+        NoSimples atual = inicio; //inicia no inicio
+        while (atual != null) {
+            System.out.print (atual.valor + " ");
+            atual = atual.prox; //vai p o próx e faz o while de novo
+        }
+        System.out.println ();
+    }
+   
+}
+
+
 // Deque com lista duplamente encadeada
 //Nó que aponta para os dois lados
 
@@ -133,131 +260,6 @@ class DequeDuplamenteEncadeado {
     }
 }
 
-// Deque com lista simplemente encadeada
-//Nó que aponta só para o próximo
-
-class NoSimples {
-    int valor;
-    NoSimples prox; // próx nó 
-
-    public NoSimples (int valor) {
-        this.valor = valor;
-        this.prox = null; //inicia vazio
-    }
-}
-
-class DequeSimplesmenteEncadeado {
-    private NoSimples inicio; //primeiro nó
-    private NoSimples fim; //último nó 
-    private int tamanho; // elementos 
-
-    public DequeSimplesmenteEncadeado () {
-        inicio = null;
-        fim = null;
-        tamanho = 0; //inicia tudo vazio
-    }
-
-    public boolean isEmpty (){
-        return tamanho == 0;
-    }
-
-    public int tamanho (){
-        return tamanho;
-    }
-
-    public void inserirInicio (int valor) {
-        NoSimples novoNo = new NoSimples (valor); // novo
-
-        if (isEmpty()) {
-            inicio = novoNo; 
-            fim = novoNo;
-        }
-        else {
-            novoNo.prox = inicio; // novo nó aponta para a atual inicio 
-            inicio = novoNo; // novo nó vira a nova inicio 
-        }
-        tamanho++;
-        System.out.println (valor + " foi inserido no início do deque.");
-    }
-
-    public void inserirFim (int valor) {
-        NoSimples novoNo = new NoSimples (valor); //novo
-
-        if (isEmpty()) {
-            inicio = novoNo;
-            fim = novoNo;
-        }
-        else {
-            fim.prox = novoNo; //atual fim aponta para novo nó
-            fim = novoNo; // novo nó vira o novo fim
-        }
-        tamanho++;
-        System.out.println (valor + " foi inserido no final do deque.");
-    }
-
-    public int removerInicio () {
-        if (isEmpty()) {
-            System.out.println ("O deque está vazio, não há o que remover.");
-            return -1;
-        }
-
-        int valor = inicio.valor; // tira o valor do inicio e armazena após remover
-
-        if (tamanho == 1) { // se só tem 1, fica vazio
-            inicio = null;
-            fim = null;
-        }
-        else {
-            inicio = inicio.prox; // o inicio vira o atual 2º nó
-        }
-
-        tamanho--;
-        System.out.println (valor + " foi removido do início do deque.");
-        return valor; // informa removido
-    }
-
-    public int removerFim () { // Big-o: O(n)
-        if (isEmpty()) {
-            System.out.println ("O deque está vazio, não há o que remover.");
-            return -1;
-        }
-
-        int valor = fim.valor; // tira o valor do fim e armazena 
-
-        if (tamanho == 1) { // se só tem 1, tudo fica vazio
-            inicio = null;
-            fim = null; 
-        }
-        else {
-            NoSimples atual = inicio;
-            while (atual.prox != fim) { //enqt o próx do atual não for fim
-                atual = atual.prox; // percorre a lista
-            }
-            // agora o atual é o penúltimo
-            atual.prox = null; // tira a ligação com o antigo fim
-            fim = atual; // atual vira o novo fim
-        }
-        tamanho--;
-        System.out.println (valor + " foi removido do final do deque.");
-        return valor; // informa o removido
-    }
-
-    //mostrar o deque
-    public void mostrarDeque () {
-        if (isEmpty()) {
-            System.out.println ("O deque está vazio.");
-            return;
-        }
-        System.out.print("Deque atual:" );
-        NoSimples atual = inicio; //inicia no inicio
-        while (atual != null) {
-            System.out.print (atual.valor + " ");
-            atual = atual.prox; //vai p o próx e faz o while de novo
-        }
-        System.out.println ();
-    }
-   
-}
 
 // testes
 public class ListaDeque {
