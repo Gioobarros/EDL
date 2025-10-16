@@ -107,6 +107,30 @@ class pilha {
         System.out.println ("A capacidade foi aumentada para: " + capacidade);
     }
 
+    //Diminui a capacidade
+    private void diminuit (int novaCapacidade) {
+        int [] novoArray = new int [novaCapacidade]; // criando novo array com tam menor 
+
+        //copiando a pilha vermelha 
+        for (int i = 0; i <= topoVermelho; i++) { // enqt o índice for < ou == ao topoVerm 
+            novoArray[i] = arrai[i]; //copia 
+        }
+
+        int elementosPreto = capacidade -topoPreto; //qnt elementos
+        int novoTopoPreto = novaCapacidade - elementosPreto; //novo 
+
+        //copiando a preta
+        for (int i = 0; i < topoPreto; i++) { //enqt i for menor q a qnt de elemtos 
+            novoArray [novoTopoPreto + i] = array [topoPreto + i]; // copiando 
+        }
+
+        array = novoArray;
+        topoPreto = novoTopoPreto; 
+        capacidade = novaCapacidade;
+
+        System.out.println ("A capacidade foi diminuída para: " + capacidade);
+    }
+
     //Mostrar as pilhas
     public void mostrarPilhas() {
         System.out.println ("\n --- Estado das Pilhas ---");
